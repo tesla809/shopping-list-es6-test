@@ -49,6 +49,11 @@ const addItem = () => {
     li.textContent = addItemInput.value;
     listUl.appendChild(li);
     addItemInput.value = '';
+
+    // add button to new list item
+    let button = document.createElement('BUTTON');
+    button.textContent = 'Remove';
+    li.appendChild(button);
   }
 };
 
