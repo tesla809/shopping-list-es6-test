@@ -16,7 +16,7 @@ const highlightListItems = (event) => {
   }
 };
 
-const unhighlightListItems = (event) => {
+const unHighlightListItems = (event) => {
   if (event.target.tagName === 'LI'){
     event.target.style.backgroundColor = 'white';
    }
