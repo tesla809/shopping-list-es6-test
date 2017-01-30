@@ -50,11 +50,6 @@ const addItem = () => {
     li.textContent = addItemInput.value;
     listUl.appendChild(li);
     addItemInput.value = '';
-  
-    li.addEventListener('mouseover', () => {
-      li.style.color = 'purple';
-      li.textContent = li.textContent.toUpperCase();
-    });
   }
 };
 
