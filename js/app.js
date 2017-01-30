@@ -11,15 +11,14 @@ const removeItemButton = document.querySelector('button.removeItemButton');
 
 const highlightListItems = (event) => {
   if (event.target.tagName === 'LI'){
-    event.target.style.color = 'purple';
-    event.target.textContent = event.target.textContent.toUpperCase();
+    let li = event.target;
+    li.style.backgroundColor = 'lightyellow';
   }
 };
 
 const unhighlightListItems = (event) => {
   if (event.target.tagName === 'LI'){
-    event.target.style.color = 'black';
-    event.target.textContent = event.target.textContent.toLowerCase();
+    event.target.style.backgroundColor = 'white';
    }
 };
 
@@ -105,7 +104,6 @@ const inputBoxBackToNormal = () => {
     addItemInput.style.boxShadow = 'none';
   }
 };
-
 
 // Using event bubbling to binding event to parent list div, so that you can bind event listeners to all li tags.
 // This way it takes up less memory and applies to all new li tags after being created 
