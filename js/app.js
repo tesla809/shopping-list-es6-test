@@ -22,6 +22,16 @@ const unHighlightListItems = (event) => {
    }
 };
 
+const removeListItemButton = (event) => {
+  if (event.target.tagName === 'BUTTON'){
+    let li = event.target.parentNode;
+    // DOM traversal - move between elements
+    let ul = li.parentNode;
+    console.log(li, ul);
+    ul.removeChild(li);
+  }
+};
+
 const toggleListDisplay = () => {
   if (listDiv.style.display === 'none'){
     toggleList.textContent = 'Hide list';
@@ -72,8 +82,12 @@ const removeItem = () => {
     let listUlArray = listUl.querySelectorAll('li')
     let listUlLength = listUlArray.length;
     let foundItem = false;
+
     for(var i = 0; i < listUlLength; i++){
-      if(listUlArray[i].textContent ===  removeItem){
+      let targetText = listUlArray[i].textContent;
+      let targetTextNoRemove = targetText.substring(0, targetText.length - 7);
+      if(targetTextNoRemove ===  removeItem){
+        console.log('x')
         // remove li element typed into the field.
         listUl.removeChild(listUlArray[i]);
         // else: alert x + "not found in list"
@@ -137,6 +151,11 @@ addItemInput.addEventListener('blur', inputBoxNoFocusHightlight);
 
 // if empty, sets input field back to normal   
 addItemInput.addEventListener('keyup', inputBoxBackToNormal);
+
+// remove list item when clicked on
+// changed listDiv to listUl
+listUl.addEventListener('click', removeListItemButton);
+
   
 
   
