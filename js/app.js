@@ -114,7 +114,7 @@ const inputBoxBackToNormal = () => {
 // This way it takes up less memory and applies to all new li tags after being created 
 listDiv.addEventListener('mouseover', highlightListItems);
 
-listDiv.addEventListener('mouseout', unhighlightListItems);
+listDiv.addEventListener('mouseout', unHighlightListItems);
 
 toggleList.addEventListener('click', toggleListDisplay);
 
