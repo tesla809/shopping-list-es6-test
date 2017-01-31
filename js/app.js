@@ -3,7 +3,8 @@ const listDiv = document.querySelector('.list');
 const descriptionButtonInput = document.querySelector('input.description');
 const descriptionButtonP = document.querySelector('p.description');
 const descriptionButton = document.querySelector('button.description');
-const listUl = document.getElementsByTagName('ul')[0];
+// added this- to target this ul in case there are other uls later on.
+const listUl = listDiv.querySelector('ul');
 const listItems = document.getElementsByTagName('li');
 const addItemInput = document.querySelector('input.addItemInput');
 const addItemButton = document.querySelector('button.addItemButton');
@@ -23,11 +24,10 @@ const unHighlightListItems = (event) => {
 };
 
 const removeListItemButton = (event) => {
-  if (event.target.tagName === 'BUTTON'){
+  if (event.target.className === 'remove'){
     let li = event.target.parentNode;
     // DOM traversal - move between elements
     let ul = li.parentNode;
-    console.log(li, ul);
     ul.removeChild(li);
   }
 };
@@ -51,6 +51,32 @@ const setListDescription = () => {
   }
 };
 
+const moveItemUp = (event) => {
+  if (event.target.className  === 'up'){
+    let li = event.target.parentNode;
+    let prevLi = li.previousElementSibling;
+    let ul = li.parentNode;
+    if(prevLi){
+      // parentNode.insertBefore(itemToInsert, itemToBeInsertedBefore)
+      ul.insertBefore(li, prevLi);
+    }
+  }
+};
+
+const moveItemDown = (event) => {
+  if (event.target.className  === 'down'){
+    let li = event.target.parentNode;
+    let nextLi = li.nextElementSibling;
+    let ul = li.parentNode;
+    if (nextLi != null){
+      let nextNextLi = nextLi.nextElementSibling;
+      // parentNode.insertBefore(itemToInsert, itemToBeInsertedBefore)
+      // no insertAfter() method, but placing nextLi before li does the same
+      ul.insertBefore(nextLi, li);
+    }
+  }
+};
+
 const addItem = () => {
   let li = document.createElement('li');
   if (addItemInput.value === ''){
@@ -67,7 +93,7 @@ const addItem = () => {
   }
 };
 
-const removeItem = () => {
+const removeItemFromList = () => {
   // if value is empty space remove last item
   if(addItemInput.value === ''){
   // another way of doing it
@@ -86,6 +112,7 @@ const removeItem = () => {
     for(var i = 0; i < listUlLength; i++){
       let targetText = listUlArray[i].textContent;
       let targetTextNoRemove = targetText.substring(0, targetText.length - 7);
+      //Bug- this needs fixing
       if(targetTextNoRemove ===  removeItem){
         console.log('x')
         // remove li element typed into the field.
@@ -134,6 +161,12 @@ toggleList.addEventListener('click', toggleListDisplay);
 
 descriptionButton.addEventListener('click', setListDescription);
 
+// move list up when clicked on
+listUl.addEventListener('click', moveItemUp);
+
+// move list down when clicked on
+listUl.addEventListener('click', moveItemDown);
+
 // add Item.
 // when mouse over, items turn purple and upper case
 addItemButton.addEventListener('click', addItem);
@@ -141,7 +174,7 @@ addItemButton.addEventListener('click', addItem);
 // removes items. If input field is blank, it deletes the last item
 // if it has an item on the list, it is deleted.
 // if the item is not on the list, box is turned red
-removeItemButton.addEventListener('click', removeItem);
+removeItemButton.addEventListener('click', removeItemFromList);
   
 // when in focus
 addItemInput.addEventListener('focus', inputBoxInFocusHightlight);
@@ -155,6 +188,8 @@ addItemInput.addEventListener('keyup', inputBoxBackToNormal);
 // remove list item when clicked on
 // changed listDiv to listUl
 listUl.addEventListener('click', removeListItemButton);
+
+
 
   
 
