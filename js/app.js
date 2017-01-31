@@ -9,6 +9,33 @@ const listItems = document.getElementsByTagName('li');
 const addItemInput = document.querySelector('input.addItemInput');
 const addItemButton = document.querySelector('button.addItemButton');
 const removeItemButton = document.querySelector('button.removeItemButton');
+const listChildren = listUl.children;
+
+// attach buttons to pre-loaded data
+// mod this if loading data with ajax
+const addButtonsToPreloadData = (itemsList) => {
+  for (let i = 0; i < itemsList.length; i++){
+    attachListItemButtons(itemsList[i]);
+  }
+};
+
+const attachListItemButtons = (li) => {
+  let upButton = document.createElement('BUTTON');
+  upButton.className = 'up';
+  upButton.textContent = 'Up';
+  
+  let downButton = document.createElement('BUTTON');
+  downButton.className = 'down';
+  downButton.textContent = 'Down';
+  
+  let removeButton = document.createElement('BUTTON');
+  removeButton.className = 'remove';
+  removeButton.textContent = 'Remove';
+  
+  li.appendChild(upButton);
+  li.appendChild(downButton);
+  li.appendChild(removeButton);
+};
 
 const highlightListItems = (event) => {
   if (event.target.tagName === 'LI'){
@@ -56,7 +83,7 @@ const moveItemUp = (event) => {
     let li = event.target.parentNode;
     let prevLi = li.previousElementSibling;
     let ul = li.parentNode;
-    if(prevLi){
+    if (prevLi){
       // parentNode.insertBefore(itemToInsert, itemToBeInsertedBefore)
       ul.insertBefore(li, prevLi);
     }
@@ -83,29 +110,15 @@ const addItem = () => {
     addItemInput.value = 'add something'
   } else {
     li.textContent = addItemInput.value;
+    attachListItemButtons(li);
     listUl.appendChild(li);
     addItemInput.value = '';
-
-    // add button to new list item
-    let removeButton = document.createElement('BUTTON');
-    removeButton.textContent = 'Remove';
-    li.appendChild(button);
-
-    let upButton = document.createElement('BUTTON');
-    upButton.textContent = 'Up';
-    li.appendChild(upButton);
-
-
-    let downButton = document.createElement('BUTTON');
-    downButton.textContent = 'Down';
-    li.appendChild(downButton);
-
   }
 };
 
 const removeItemFromList = () => {
   // if value is empty space remove last item
-  if(addItemInput.value === ''){
+  if (addItemInput.value === ''){
   // another way of doing it
   // let listUlArray = listUl.querySelectorAll('li');
   // let lastElement = listUlArray[listUlArray.length - 1];
@@ -119,11 +132,11 @@ const removeItemFromList = () => {
     let listUlLength = listUlArray.length;
     let foundItem = false;
 
-    for(var i = 0; i < listUlLength; i++){
+    for (var i = 0; i < listUlLength; i++){
       let targetText = listUlArray[i].textContent;
       let targetTextNoRemove = targetText.substring(0, targetText.length - 7);
       //Bug- this needs fixing
-      if(targetTextNoRemove ===  removeItem){
+      if (targetTextNoRemove ===  removeItem){
         console.log('x')
         // remove li element typed into the field.
         listUl.removeChild(listUlArray[i]);
@@ -132,7 +145,7 @@ const removeItemFromList = () => {
         addItemInput.value = '';
       }
     }
-      if(!foundItem){
+      if (!foundItem){
         addItemInput.style.outline = 'none';
         addItemInput.style.borderColor = 'tomato';
         addItemInput.style.boxShadow = '0 0 20px tomato';
@@ -154,12 +167,15 @@ const inputBoxNoFocusHightlight = () => {
 
 // if empty, sets input field back to normal 
 const inputBoxBackToNormal = () => {
-  if(addItemInput === ''){
+  if (addItemInput === ''){
     addItemInput.style.outline = 'none';
     addItemInput.style.border = '1px solid #dcdcdc';
     addItemInput.style.boxShadow = 'none';
   }
 };
+
+// load buttons to preloaded data
+addButtonsToPreloadData(listChildren);
 
 // Using event bubbling to binding event to parent list div, so that you can bind event listeners to all li tags.
 // This way it takes up less memory and applies to all new li tags after being created 
