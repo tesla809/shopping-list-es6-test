@@ -87,9 +87,19 @@ const addItem = () => {
     addItemInput.value = '';
 
     // add button to new list item
-    let button = document.createElement('BUTTON');
-    button.textContent = 'Remove';
+    let removeButton = document.createElement('BUTTON');
+    removeButton.textContent = 'Remove';
     li.appendChild(button);
+
+    let upButton = document.createElement('BUTTON');
+    upButton.textContent = 'Up';
+    li.appendChild(upButton);
+
+
+    let downButton = document.createElement('BUTTON');
+    downButton.textContent = 'Down';
+    li.appendChild(downButton);
+
   }
 };
 
