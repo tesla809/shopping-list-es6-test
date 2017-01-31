@@ -86,6 +86,9 @@ const moveItemUp = (event) => {
     if (prevLi){
       // parentNode.insertBefore(itemToInsert, itemToBeInsertedBefore)
       ul.insertBefore(li, prevLi);
+    } else {
+      let firstListItem = listUl.firstElementChild;
+      firstListItem.style.backgroundColor = 'lightskyblue';
     }
   }
 };
@@ -100,6 +103,9 @@ const moveItemDown = (event) => {
       // parentNode.insertBefore(itemToInsert, itemToBeInsertedBefore)
       // no insertAfter() method, but placing nextLi before li does the same
       ul.insertBefore(nextLi, li);
+    } else {
+      let lastListItem = listUl.lastElementChild;
+      lastListItem.style.backgroundColor = 'lightsteelblue';
     }
   }
 };
